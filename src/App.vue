@@ -4,7 +4,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
+    <a class="text-red-500">Test</a>
+    <a href="https://vitejs.dev" target="_blank" class="text-red-500">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
