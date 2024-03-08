@@ -8,10 +8,10 @@
 
 <script setup lang="ts">
 
-import {ref, defineEmits } from 'vue';
+import {ref } from 'vue';
 
 const newTodo = ref<string>("");
-const emit = defineEmits();
+const emit = defineEmits(['add-todo']);
 
 function addTodo() {
     emit('add-todo', newTodo.value);

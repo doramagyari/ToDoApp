@@ -1,22 +1,22 @@
 <template>
     <div>
         <TodoForm @add-todo="handleAddTodo"/>
+        <TodoRemoveAll @remove-all-todo="handleRemoveAllTodo"/>
         <ul>
             <li v-for="(todo, index) in todos" :key="index">
                 {{ todo }}
-                <TodoRemove :index="index" @remove-todo="handleRemoveTodo"/>
+                <TodoRemove :index="index" @remove-todo="handleRemoveTodo" />
             </li>
         </ul>
-        <TodoRemoveAll @remove-all-todo="handleRemoveAllTodo"/>
     </div>
 </template>
 
 <script setup lang="ts">
 
 import {ref} from 'vue';
-import TodoForm from './TodoForm.vue';
-import TodoRemove from './TodoRemove.vue'
-import TodoRemoveAll from './TodoRemoveAll.vue'
+import TodoForm from './todo_crud/TodoForm.vue';
+import TodoRemove from './todo_crud/TodoRemove.vue';
+import TodoRemoveAll from './todo_crud/TodoRemoveAll.vue';
 
 const todos = ref<string[]>([]);
 
