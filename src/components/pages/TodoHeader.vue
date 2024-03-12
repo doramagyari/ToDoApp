@@ -1,18 +1,10 @@
 <template>
-    <!-- <form @submit.prevent="addTodo">
-        <label for="newTodo">New Todo</label>
-        <input type="text" id="newTodo" v-model="newTodo"/>
-        <BaseButton type="submit" >Add</BaseButton>
-    </form> -->
-
-    <nav class="w-72 h-8 top-32 left-4">
-        <h2 class="font-display font-semibold text-2xl leading-7">To do list</h2>
-        <div>
-            <BaseButton type="submit">
-                <PlusCircleIcon class="w-8 h-8 top-32 end-72" style="color: lightgreen" />
+        <nav class="flex group mt-16 sticky justify-between my-16 sm:px-4">
+            <h2 class="font-display font-semibold text-black text-2xl leading-10">To do list</h2>
+            <BaseButton type="submit" @click="addTodo">
+                <PlusCircleIcon class="h-10 w-10 text-emerald-500 "/>
             </BaseButton>
-        </div>
-    </nav>
+        </nav>
 </template>
 
 <script setup lang="ts">

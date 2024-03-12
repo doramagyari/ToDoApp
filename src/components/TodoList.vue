@@ -1,4 +1,5 @@
 <template>
+    <div class="container max-w-96 mx-auto">
         <TodoHeader @add-todo="handleAddTodo"/>
         <!-- <BaseButton @click="handleRemoveAllTodo">Clear All</BaseButton> -->
         <ul>
@@ -7,6 +8,7 @@
                 <BaseButton @click="handleRemoveTodo(index)" >Remove</BaseButton>
             </li>
         </ul>
+    </div>
 </template>
 
 <script setup lang="ts">
