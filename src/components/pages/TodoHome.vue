@@ -5,10 +5,10 @@
     <ul v-if="todos.length > 0">
       <li v-for="index in todos" :key="index">
         <!-- <BaseButton @click="handleRemoveTodo(index)" >Remove</BaseButton> -->
-        <TodoCard/>
+        <BaseCard />
       </li>
     </ul>
-    <EmptyState v-else/>
+    <TodoWelcome v-else />
   </div>
 </template>
 
@@ -16,8 +16,8 @@
 import { ref } from "vue";
 import BaseButton from "../ui/BaseButton.vue";
 import TodoHeader from "../pages/TodoHeader.vue";
-import TodoCard from "../ui/TodoCard.vue";
-import EmptyState from "../ui/EmptyState.vue";
+import BaseCard from "../ui/BaseCard.vue";
+import TodoWelcome from "../pages/TodoWelcome.vue";
 
 const todos = ref<string[]>([]);
 
