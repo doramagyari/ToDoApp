@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <TodoForm @add-todo="handleAddTodo"/>
-        <BaseButton @click="handleRemoveAllTodo">Clear All</BaseButton>
+    <div class="container max-w-96 mx-auto">
+        <TodoHeader @add-todo="handleAddTodo"/>
+        <!-- <BaseButton @click="handleRemoveAllTodo">Clear All</BaseButton> -->
         <ul>
             <li v-for="(todo, index) in todos" :key="index">
                 {{ todo }}
@@ -15,7 +15,7 @@
 
 import {ref} from 'vue';
 import BaseButton from './ui/BaseButton.vue';
-import TodoForm from './pages/TodoForm.vue';
+import TodoHeader from './pages/TodoHeader.vue';
 
 const todos = ref<string[]>([]);
 
@@ -31,4 +31,4 @@ function handleRemoveAllTodo() : void {
     todos.value.splice(0, todos.value.length)
 }
 
-</script>
+</script>./pages/TodoHeader.vue
