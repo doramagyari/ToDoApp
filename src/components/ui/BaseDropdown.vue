@@ -1,12 +1,17 @@
 <template>
   <div class="group">
     <Listbox v-model="selectedPriority">
-      <ListboxButton 
-        class="border-2 border-black rounded-full mr-4 p-1 h-7 min-w-24 "
+      <ListboxButton
+        :class="[
+          'rounded-full mr-4 p-1 h-6 text-white pt-0 px-6',
+          { 'bg-orange-600': selectedPriority === 'High' },
+          { 'bg-amber-500': selectedPriority === 'Medium' },
+          { 'bg-cyan-500': selectedPriority === 'Low' },
+        ]"
         >{{ selectedPriority }}</ListboxButton
       >
       <ListboxOptions
-        class="bg-white border-2 border-black rounded-lg max-w-24 mt-2 pl-2"
+        class="cursor-default absolute bg-white border-2 border-black rounded-lg min-w-24 mt-1 p-2"
       >
         <ListboxOption
           v-for="priority in priorities"

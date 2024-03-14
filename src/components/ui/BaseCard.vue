@@ -6,7 +6,10 @@
       <BaseTitle></BaseTitle>
       <BaseDropdown></BaseDropdown>
     </div>
-    <BaseDecription></BaseDecription>
+    <div class="flex justify-between">
+      <BaseDecription></BaseDecription>
+      <BaseCheck></BaseCheck>
+    </div>
   </div>
 </template>
 
@@ -14,4 +17,7 @@
 import BaseDropdown from "./BaseDropdown.vue";
 import BaseTitle from "./BaseTitle.vue";
 import BaseDecription from "./BaseDescription.vue";
+import BaseCheck from "./BaseCheck.vue";
+
+
 </script>

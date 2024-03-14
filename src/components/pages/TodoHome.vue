@@ -3,9 +3,12 @@
     <TodoHeader @add-todo="handleAddTodo" />
     <!-- <BaseButton @click="handleRemoveAllTodo">Clear All</BaseButton> -->
     <ul v-if="todos.length > 0">
-      <li v-for="index in todos" :key="index">
+      <li v-for="(todo, index) in todos" :key="index">
         <!-- <BaseButton @click="handleRemoveTodo(index)" >Remove</BaseButton> -->
-        <BaseCard />
+        <BaseCard
+          :title="todo.title"
+          :description="todo.description"
+        ></BaseCard>
       </li>
     </ul>
     <TodoWelcome v-else />
@@ -14,22 +17,27 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import BaseButton from "../ui/BaseButton.vue";
+// import BaseButton from "../ui/BaseButton.vue";
 import TodoHeader from "../pages/TodoHeader.vue";
 import BaseCard from "../ui/BaseCard.vue";
 import TodoWelcome from "../pages/TodoWelcome.vue";
 
-const todos = ref<string[]>([]);
+interface Todo {
+  title: string;
+  description: string;
+}
 
-function handleAddTodo(newTodo: string): void {
+const todos = ref<Todo[]>([]);
+
+function handleAddTodo(newTodo: Todo): void {
   todos.value.push(newTodo);
 }
 
-function handleRemoveTodo(index: number): void {
-  todos.value.splice(index, 1);
-}
+// function handleRemoveTodo(index: number): void {
+//   todos.value.splice(index, 1);
+// }
 
-function handleRemoveAllTodo(): void {
-  todos.value.splice(0, todos.value.length);
-}
+// function handleRemoveAllTodo(): void {
+//   todos.value.splice(0, todos.value.length);
+// }
 </script>
