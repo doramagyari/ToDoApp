@@ -3,7 +3,7 @@
     <h2 class="font-display font-semibold text-black text-4xl leading-10">
       To do list
     </h2>
-    <BaseButton type="submit" @click="addTodo">
+    <BaseButton @click="addTodo">
       <PlusCircleIcon class="h-10 w-10 text-emerald-500" />
     </BaseButton>
   </nav>

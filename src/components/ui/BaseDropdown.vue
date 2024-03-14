@@ -2,12 +2,8 @@
   <div class="group">
     <Listbox v-model="selectedPriority">
       <ListboxButton
-        :class="[
-          'rounded-full mr-4 p-1 h-6 text-white pt-0 px-6',
-          { 'bg-orange-600': selectedPriority === 'High' },
-          { 'bg-amber-500': selectedPriority === 'Medium' },
-          { 'bg-cyan-500': selectedPriority === 'Low' },
-        ]"
+        :class="priorityClass"
+        class="rounded-full mr-4 p-1 h-6 text-white pt-0 px-6"
         >{{ selectedPriority }}</ListboxButton
       >
       <ListboxOptions
@@ -26,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import {
   Listbox,
   ListboxButton,
@@ -34,6 +30,18 @@ import {
   ListboxOptions,
 } from "@headlessui/vue";
 
-const priorities: string[] = ["Low", "Medium", "High"];
-const selectedPriority = ref<string>(priorities[2]);
+const priorities = ["Low", "Medium", "High"] as const;
+const selectedPriority = ref<typeof priorities[number]>(priorities[2]);
+
+const priorityClass = computed(() => {
+  if (selectedPriority.value === "High") {
+    return "bg-orange-600";
+  }
+  if (selectedPriority.value === "Medium") {
+    return "bg-amber-500";
+  }
+  if (selectedPriority.value === "Low") {
+    return "bg-cyan-500";
+  }
+});
 </script>
