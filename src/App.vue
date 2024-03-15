@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import ToDoList from './components/TodoList.vue'
+import TodoHome from "./components/pages/TodoHome.vue";
 </script>
 
 <template>
-  <ToDoList></ToDoList>
+  <TodoHome></TodoHome>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
