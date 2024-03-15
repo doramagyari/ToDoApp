@@ -1,37 +1,50 @@
 <template>
   <div class="group">
-    <Listbox v-model="selectedPriority">
-      <ListboxButton
-        :class="priorityClass"
-        class="rounded-full mr-4 p-1 h-6 text-white pt-0 px-6"
-        >{{ selectedPriority }}</ListboxButton
+    <div
+      class="relative rounded-full mr-4 text-white pt-0 px-5"
+      :class="priorityClass"
+    >
+      <div
+        @click.stop="openDropDown"
+        class="rounded-full cursor-pointer font-inter flex justify-between"
       >
-      <ListboxOptions
-        class="cursor-default absolute bg-white border-2 border-black rounded-lg min-w-24 mt-1 p-2"
+        {{ selectedPriority }}
+        <img :src="arrowSvg" class="ml-2" />
+      </div>
+
+      <div
+        v-if="isOpen"
+        class="fixed top-0 left-0 h-screen w-screen"
+        @click.stop="closeDropDown"
+      ></div>
+
+      <div
+        v-if="isOpen"
+        class="absolute bg-white border-2 border-black rounded-lg mt-3 p-2 w-28 left-0"
       >
-        <ListboxOption
-          v-for="priority in priorities"
-          :key="priority"
-          :value="priority"
-        >
-          {{ priority }}
-        </ListboxOption>
-      </ListboxOptions>
-    </Listbox>
+        <ul>
+          <li
+            v-for="priority in priorities"
+            :key="priority"
+            :value="priority"
+            class="cursor-pointer text-black"
+            @click="selectPriority(priority)"
+          >
+            {{ priority }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions,
-} from "@headlessui/vue";
+import arrowSvg from "../../assets/svg/down-arrow.svg";
 
 const priorities = ["Low", "Medium", "High"] as const;
-const selectedPriority = ref<typeof priorities[number]>(priorities[2]);
+const selectedPriority = ref<(typeof priorities)[number]>(priorities[2]);
+const isOpen = ref(false);
 
 const priorityClass = computed(() => {
   if (selectedPriority.value === "High") {
@@ -44,4 +57,17 @@ const priorityClass = computed(() => {
     return "bg-cyan-500";
   }
 });
+
+function openDropDown() {
+  isOpen.value = true;
+}
+
+function closeDropDown() {
+  isOpen.value = false;
+}
+
+function selectPriority(priority: (typeof priorities)[number]) {
+  selectedPriority.value = priority;
+  closeDropDown();
+}
 </script>
