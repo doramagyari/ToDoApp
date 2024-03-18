@@ -1,12 +1,9 @@
 <template>
   <div class="container max-w-96 mx-auto">
-    <TodoHeader @add-todo="handleAddTodo" />
+    <TodoHeader @click="handleAddTodo" />
     <ul v-if="todos.length > 0">
       <li v-for="(todo, index) in todos" :key="index">
-        <BaseCard
-          :title="todo.title"
-          :description="todo.description"
-        ></BaseCard>
+        <BaseCard></BaseCard>
       </li>
     </ul>
     <TodoWelcome v-else />
@@ -19,15 +16,9 @@ import TodoHeader from "../pages/TodoHeader.vue";
 import BaseCard from "../ui/BaseCard.vue";
 import TodoWelcome from "../pages/TodoWelcome.vue";
 
-interface Todo {
-  title: string;
-  description: string;
-}
+const todos = ref<string[]>([]);
 
-const todos = ref<Todo[]>([]);
-
-function handleAddTodo(newTodo: Todo): void {
+function handleAddTodo(newTodo: string): void {
   todos.value.push(newTodo);
 }
-
 </script>
