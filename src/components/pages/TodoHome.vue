@@ -1,9 +1,12 @@
 <template>
   <div class="container max-w-96 mx-auto">
-    <TodoHeader @click="handleAddTodo" />
+    <TodoHeader @add-todo="handleAddTodo" />
     <ul v-if="todos.length > 0">
       <li v-for="(todo, index) in todos" :key="index">
-        <BaseCard></BaseCard>
+        <BaseCard
+          :index="index"
+          @remove-todo="handleRemoveTodo(index)"
+        ></BaseCard>
       </li>
     </ul>
     <TodoWelcome v-else />
@@ -19,6 +22,10 @@ import TodoWelcome from "../pages/TodoWelcome.vue";
 const todos = ref<string[]>([]);
 
 function handleAddTodo(newTodo: string): void {
-  todos.value.push(newTodo);
+  todos.value.unshift(newTodo);
+}
+
+function handleRemoveTodo(index: number): void {
+  todos.value.splice(index, 1);
 }
 </script>
