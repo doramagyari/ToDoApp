@@ -15,10 +15,20 @@ import { PlusCircleIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
 
 const emit = defineEmits(["add-todo"]);
-const newTodo = ref<string>("");
+
+const todo = ref<{
+  title: string;
+  description: string;
+  priority: string;
+  complete: boolean;
+}>({
+  title: "",
+  description: "",
+  priority: "",
+  complete: false,
+});
 
 function addTodo() {
-  emit("add-todo", newTodo.value);
-  newTodo.value = "";
+  emit("add-todo", todo.value);
 }
 </script>
