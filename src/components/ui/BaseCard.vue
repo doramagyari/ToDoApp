@@ -1,41 +1,36 @@
 <template>
   <div
     class="cursor-pointer box-border bg-white border-2 border-black rounded-lg sm:mx-4 sm:mb-8 lg:mb-12"
-    @click.stop="showButtons"
-    @click="closePopConfirm"
+    @click="editCard"
+    @click.stop="closePopConfirm"
   >
     <div class="flex justify-between mt-3">
-      {{ index }}
-      <BaseInput v-model="todo.title"></BaseInput>
-      <BaseDropdown v-model="todo.priority"></BaseDropdown>
+      <BaseInput v-model="localTodo.title"></BaseInput>
+      <BaseDropdown v-model="localTodo.priority"></BaseDropdown>
+    </div>
+    <div class="lg:hidden sm:flex sm:pl-5">
+      <img :src="calendarSvg" />
+      <p class="font-dispay-pro text-zinc-600 pl-1">
+        {{ formatDate(localTodo.created_at) }}
+      </p>
     </div>
     <div class="flex justify-between">
-      <BaseTextarea v-model="todo.description"></BaseTextarea>
-      <BaseCheck
-        v-show="!isClicked"
-        @click.stop="hideButtons"
-        v-model="todo.complete"
-      ></BaseCheck>
+      <BaseTextarea v-model="localTodo.description"></BaseTextarea>
+      <BaseCheck v-show="!isClicked" v-model="localTodo.complete"></BaseCheck>
     </div>
-    <div class="flex mb-4">
+    <div class="flex mb-4" v-show="props.isClicked">
       <BaseButton
-        @click="hideButtons"
         @click.stop="saveChanges"
-        v-show="isClicked"
         class="bg-emerald-500 text-white font-display-pro rounded-xl px-8 max-w-28 ml-5 py-3"
         >Save</BaseButton
       >
       <BaseButton
-        v-show="isClicked"
         @click.stop="openPopConfirm"
         class="bg-gray-200 text-black font-display-pro rounded-xl px-8 max-w-28 ml-3 py-3"
         >Delete</BaseButton
       >
     </div>
-    <BasePopConfirm
-      :index="index"
-      v-if="showPopConfirm"
-      @remove-todo="deleteCard"
+    <BasePopConfirm v-if="showPopConfirm" @remove-todo="deleteCard"
       >Delete</BasePopConfirm
     >
   </div>
@@ -49,33 +44,31 @@ import BaseTextarea from "./BaseTextarea.vue";
 import BaseCheck from "./BaseCheck.vue";
 import BasePopConfirm from "./BasePopConfirm.vue";
 import { ref } from "vue";
+import { Todo } from "../../types/todo";
+import calendarSvg from "../../assets/svg/calendar.svg";
 
-const emit = defineEmits(["remove-todo", "update-todo"]);
-const isClicked = ref(false);
+const emit = defineEmits([
+  "update-todo",
+  "remove-todo",
+  "delete-todo",
+  "edit-card",
+  "hide-buttons",
+]);
 const showPopConfirm = ref(false);
 const props = defineProps<Props>();
 
-const todo = ref<{
-  title: string;
-  description: string;
-  priority: string;
-  complete: boolean;
-}>({
-  title: "",
-  description: "",
-  priority: "",
-  complete: false,
+const localTodo = ref<Todo>({
+  id: props.todo.id,
+  title: props.todo.title,
+  description: props.todo.description,
+  priority: props.todo.priority,
+  complete: props.todo.complete,
+  created_at: getCurrentDateTime(),
 });
 
 interface Props {
-  index: number;
-}
-function hideButtons() {
-  isClicked.value = false;
-}
-
-function showButtons() {
-  isClicked.value = true;
+  todo: Todo;
+  isClicked: boolean;
 }
 
 function openPopConfirm() {
@@ -87,10 +80,27 @@ function closePopConfirm() {
 }
 
 function deleteCard() {
-  emit("remove-todo", props.index);
+  emit("delete-todo", localTodo.value.id);
 }
 
 function saveChanges() {
-  emit("update-todo", props.index, todo.value);
+  emit("update-todo", localTodo.value.id, localTodo.value);
+}
+
+function editCard() {
+  emit("edit-card", localTodo.value.id, props.isClicked);
+}
+
+function getCurrentDateTime(): Date {
+  return new Date();
+}
+
+function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  };
+  return date.toLocaleDateString("de-DE", options);
 }
 </script>

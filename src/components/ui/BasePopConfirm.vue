@@ -34,7 +34,7 @@ import BaseButton from "./BaseButton.vue";
 
 const emit = defineEmits(["remove-todo"]);
 
-function removeTodo(index: number) {
-  emit("remove-todo", index);
+function removeTodo() {
+  emit("remove-todo");
 }
 </script>

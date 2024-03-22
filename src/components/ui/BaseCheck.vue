@@ -1,5 +1,9 @@
 <template>
-  <img :src="currentSvg" class="hidden lg:block lg:pr-4" @click="clickedSvg" />
+  <img
+    :src="currentSvg"
+    class="sm:hidden lg:block lg:pr-4"
+    @click="clickedSvg"
+  />
 </template>
 
 <script setup lang="ts">

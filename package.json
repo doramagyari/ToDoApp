@@ -11,10 +11,12 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.19",
     "@heroicons/vue": "^2.1.1",
+    "@types/uuid": "^9.0.8",
     "@vue-hero-icons/outline": "^1.7.2",
     "@vue-hero-icons/solid": "^1.7.2",
     "primeicons": "^6.0.1",
     "primevue": "^3.49.1",
+    "uuid": "^9.0.1",
     "vue": "^3.4.19"
   },
   "devDependencies": {

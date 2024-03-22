@@ -13,22 +13,33 @@
 import BaseButton from "../ui/BaseButton.vue";
 import { PlusCircleIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 const emit = defineEmits(["add-todo"]);
 
 const todo = ref<{
+  id: string;
   title: string;
   description: string;
   priority: string;
   complete: boolean;
 }>({
+  id: "",
   title: "",
   description: "",
   priority: "",
   complete: false,
 });
 
+function generateId(): string {
+  return uuidv4();
+}
+
 function addTodo() {
-  emit("add-todo", todo.value);
+  const newTodo = { ...todo.value };
+  if (!newTodo.id) {
+    newTodo.id = generateId();
+  }
+  emit("add-todo", newTodo);
 }
 </script>
