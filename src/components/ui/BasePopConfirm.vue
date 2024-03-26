@@ -11,17 +11,15 @@
         and you will not be undo this action!
       </p>
       <div
-        class="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0 mb-2"
+        class="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-x-3 sm:space-y-0 mb-2 whitespace-nowrap rounded-md"
       >
         <BaseButton
           @click="removeTodo"
-          class="whitespace-nowrap rounded-md bg-red-500 px-4 py-3 font-medium text-white"
+          class="bg-red-500 px-4 py-3 font-medium text-white"
         >
           Delete
         </BaseButton>
-        <BaseButton
-          class="whitespace-nowrap rounded-md bg-zinc-300 px-4 py-3 font-medium text-black"
-        >
+        <BaseButton class="bg-zinc-300 px-4 py-3 font-medium text-black">
           Cancel
         </BaseButton>
       </div>

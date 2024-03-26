@@ -5,6 +5,7 @@
       :class="priorityClass"
     >
       <div
+        @click="changeToPlaceHolder"
         @click.stop="openDropDown"
         class="rounded-full cursor-pointer font-inter flex justify-between"
       >
@@ -42,7 +43,7 @@
 import { ref, computed } from "vue";
 import arrowSvg from "../../assets/svg/down-arrow.svg";
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "change-placeholder"]);
 const priorities = ["Low", "Medium", "High"] as const;
 const selectedPriority = ref<(typeof priorities)[number]>(priorities[2]);
 const isOpen = ref(false);
@@ -71,5 +72,9 @@ function selectPriority(priority: (typeof priorities)[number]) {
   selectedPriority.value = priority;
   emit("update:modelValue", priority);
   closeDropDown();
+}
+
+function changeToPlaceHolder() {
+  emit("change-placeholder");
 }
 </script>
