@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import ellipseSvg from "../../assets/svg/ellipse.svg";
 import ellipseCheckedSvg from "../../assets/svg/ellipse-checked.svg";
-import { ref } from "vue";
 
 const emit = defineEmits(["update:modelValue"]);
 const currentSvg = ref(ellipseSvg);

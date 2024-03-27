@@ -10,25 +10,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import BaseButton from "../ui/BaseButton.vue";
 import { PlusCircleIcon } from "@heroicons/vue/24/solid";
-import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { Todo } from "../../types/todo";
 
 const emit = defineEmits(["add-todo"]);
 
-const todo = ref<{
-  id: string;
-  title: string;
-  description: string;
-  priority: string;
-  complete: boolean;
-}>({
+const localTodo = ref<Todo>({
   id: "",
   title: "",
   description: "",
   priority: "",
   complete: false,
+  created_at: getCurrentDateTime(),
 });
 
 function generateId(): string {
@@ -36,10 +32,12 @@ function generateId(): string {
 }
 
 function addTodo() {
-  const newTodo = { ...todo.value };
-  if (!newTodo.id) {
-    newTodo.id = generateId();
-  }
+  const newTodo = { ...localTodo.value };
+  newTodo.id = generateId();
   emit("add-todo", newTodo);
+}
+
+function getCurrentDateTime(): Date {
+  return new Date();
 }
 </script>

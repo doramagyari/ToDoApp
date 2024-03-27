@@ -9,7 +9,6 @@
           @delete-todo="handleRemoveTodo"
           @update-todo="handleUpdateTodo"
           @edit-card="handleToggleButtons"
-          @hide-buttons="buttonHide"
         ></BaseCard>
       </li>
     </ul>
@@ -45,10 +44,6 @@ function handleUpdateTodo(id: string, updatedTodo: Todo): void {
 
 function handleToggleButtons(id: string) {
   currentClickedId.value = id;
-}
-
-function buttonHide() {
-  currentClickedId.value = null;
 }
 
 function isClicked(id: string) {

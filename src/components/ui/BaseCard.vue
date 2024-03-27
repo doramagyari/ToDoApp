@@ -9,8 +9,8 @@
         :class="{ 'opacity-30': isDropDownClicked }"
       ></BaseInput>
       <BaseDropdown
-        @change-placeholder="toggleDropDown"
         v-model="localTodo.priority"
+        @content-opacity="toggleDropDown"
       ></BaseDropdown>
     </div>
     <div
@@ -30,12 +30,12 @@
       <BaseCheck
         v-show="!isClicked"
         v-model="localTodo.complete"
-        @click.stop="hideButtons"
+        @click.stop="saveChanges"
       ></BaseCheck>
     </div>
     <div
       class="flex mb-4"
-      v-show="props.isClicked"
+      v-show="isClicked"
       :class="{ 'opacity-30': isDropDownClicked }"
     >
       <BaseButton
@@ -58,26 +58,29 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import BaseButton from "./BaseButton.vue";
 import BaseDropdown from "./BaseDropdown.vue";
 import BaseInput from "./BaseInput.vue";
 import BaseTextarea from "./BaseTextarea.vue";
 import BaseCheck from "./BaseCheck.vue";
 import BasePopConfirm from "./BasePopConfirm.vue";
-import { ref } from "vue";
 import { Todo } from "../../types/todo";
 import calendarSvg from "../../assets/svg/calendar.svg";
 
+interface Props {
+  todo: Todo;
+  isClicked: boolean;
+}
+
+const props = defineProps<Props>();
 const emit = defineEmits([
   "update-todo",
   "remove-todo",
   "delete-todo",
   "edit-card",
-  "hide-buttons",
-  "make-placeholder",
 ]);
 const showPopConfirm = ref(false);
-const props = defineProps<Props>();
 const isDropDownClicked = ref(false);
 
 const localTodo = ref<Todo>({
@@ -88,11 +91,6 @@ const localTodo = ref<Todo>({
   complete: props.todo.complete,
   created_at: getCurrentDateTime(),
 });
-
-interface Props {
-  todo: Todo;
-  isClicked: boolean;
-}
 
 function openPopConfirm() {
   showPopConfirm.value = true;
@@ -114,10 +112,6 @@ function editCard() {
   emit("edit-card", localTodo.value.id, props.isClicked);
 }
 
-function hideButtons() {
-  emit("hide-buttons");
-}
-
 function getCurrentDateTime(): Date {
   return new Date();
 }
@@ -131,7 +125,7 @@ function formatDate(date: Date): string {
   return date.toLocaleDateString("de-DE", options);
 }
 
-function toggleDropDown() {
-  isDropDownClicked.value = !isDropDownClicked.value;
+function toggleDropDown(dropDownClicked: boolean) {
+  isDropDownClicked.value = dropDownClicked;
 }
 </script>
