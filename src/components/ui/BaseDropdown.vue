@@ -42,6 +42,7 @@
 import { ref, computed } from "vue";
 import arrowSvg from "../../assets/svg/down-arrow.svg";
 
+const emit = defineEmits(["update:modelValue", "content-opacity"]);
 const priorities = ["Low", "Medium", "High"] as const;
 const selectedPriority = ref<(typeof priorities)[number]>(priorities[2]);
 const isOpen = ref(false);
@@ -60,14 +61,17 @@ const priorityClass = computed(() => {
 
 function openDropDown() {
   isOpen.value = true;
+  emit("content-opacity", true);
 }
 
 function closeDropDown() {
   isOpen.value = false;
+  emit("content-opacity", false);
 }
 
 function selectPriority(priority: (typeof priorities)[number]) {
   selectedPriority.value = priority;
+  emit("update:modelValue", priority);
   closeDropDown();
 }
 </script>

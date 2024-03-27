@@ -13,12 +13,31 @@
 import { ref } from "vue";
 import BaseButton from "../ui/BaseButton.vue";
 import { PlusCircleIcon } from "@heroicons/vue/24/solid";
+import { v4 as uuidv4 } from "uuid";
+import { Todo } from "../../types/todo";
 
 const emit = defineEmits(["add-todo"]);
-const newTodo = ref<string>("");
+
+const localTodo = ref<Todo>({
+  id: "",
+  title: "",
+  description: "",
+  priority: "",
+  complete: false,
+  created_at: getCurrentDateTime(),
+});
+
+function generateId(): string {
+  return uuidv4();
+}
 
 function addTodo() {
-  emit("add-todo", newTodo.value);
-  newTodo.value = "";
+  const newTodo = { ...localTodo.value };
+  newTodo.id = generateId();
+  emit("add-todo", newTodo);
+}
+
+function getCurrentDateTime(): Date {
+  return new Date();
 }
 </script>
