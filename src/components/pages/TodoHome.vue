@@ -9,6 +9,7 @@
           @delete-todo="handleRemoveTodo"
           @update-todo="handleUpdateTodo"
           @edit-card="handleToggleButtons"
+          @todo-checked="moveChecked"
         ></BaseCard>
       </li>
     </ul>
@@ -48,5 +49,19 @@ function handleToggleButtons(id: string) {
 
 function isClicked(id: string) {
   return currentClickedId.value === id;
+}
+
+function moveChecked(id: string, isChecked: boolean) {
+  const index = todos.value.findIndex((todo) => todo.id === id);
+  if (index !== -1) {
+    const checkedTodo = todos.value[index];
+    todos.value.splice(index, 1);
+    if (isChecked) {
+      todos.value.unshift(checkedTodo);
+      console.log("checked");
+    } else {
+      todos.value.push(checkedTodo);
+    }
+  }
 }
 </script>

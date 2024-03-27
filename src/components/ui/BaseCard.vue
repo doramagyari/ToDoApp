@@ -31,6 +31,7 @@
         v-show="!isClicked"
         v-model="localTodo.complete"
         @click.stop="saveChanges"
+        @checked-todo="todoChecked"
       ></BaseCheck>
     </div>
     <div
@@ -79,6 +80,7 @@ const emit = defineEmits([
   "remove-todo",
   "delete-todo",
   "edit-card",
+  "todo-checked",
 ]);
 const showPopConfirm = ref(false);
 const isDropDownClicked = ref(false);
@@ -127,5 +129,9 @@ function formatDate(date: Date): string {
 
 function toggleDropDown(dropDownClicked: boolean) {
   isDropDownClicked.value = dropDownClicked;
+}
+
+function todoChecked() {
+  emit("todo-checked", localTodo.value.id);
 }
 </script>

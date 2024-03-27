@@ -3,6 +3,7 @@
     :src="currentSvg"
     class="sm:hidden lg:block lg:pr-4"
     @click="clickedSvg"
+    @click.stop="checkedTodo"
   />
 </template>
 
@@ -11,7 +12,7 @@ import { ref } from "vue";
 import ellipseSvg from "../../assets/svg/ellipse.svg";
 import ellipseCheckedSvg from "../../assets/svg/ellipse-checked.svg";
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "checked-todo"]);
 const currentSvg = ref(ellipseSvg);
 
 function clickedSvg() {
@@ -22,5 +23,9 @@ function clickedSvg() {
     currentSvg.value = ellipseSvg;
     emit("update:modelValue", false);
   }
+}
+
+function checkedTodo() {
+  emit("checked-todo");
 }
 </script>
