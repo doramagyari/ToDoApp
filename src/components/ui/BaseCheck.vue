@@ -1,10 +1,7 @@
 <template>
-  <img
-    :src="currentSvg"
-    class="sm:hidden lg:block lg:pr-4"
-    @click="clickedSvg"
-    @click.stop="checkedTodo"
-  />
+  <div @click.stop="clickedSvg">
+    <img :src="currentSvg" @click="checkedTodo" class="pr-3 mt-5" />
+  </div>
 </template>
 
 <script setup lang="ts">

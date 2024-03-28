@@ -57,10 +57,9 @@ function moveChecked(id: string, isChecked: boolean) {
     const checkedTodo = todos.value[index];
     todos.value.splice(index, 1);
     if (isChecked) {
-      todos.value.unshift(checkedTodo);
-      console.log("checked");
-    } else {
       todos.value.push(checkedTodo);
+    } else {
+      todos.value.unshift(checkedTodo);
     }
   }
 }

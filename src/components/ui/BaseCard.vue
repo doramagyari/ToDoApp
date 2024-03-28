@@ -32,6 +32,7 @@
         v-model="localTodo.complete"
         @click.stop="saveChanges"
         @checked-todo="todoChecked"
+        :class="{ 'opacity-0': isDropDownClicked }"
       ></BaseCheck>
     </div>
     <div
@@ -132,6 +133,7 @@ function toggleDropDown(dropDownClicked: boolean) {
 }
 
 function todoChecked() {
-  emit("todo-checked", localTodo.value.id);
+  localTodo.value.complete = !localTodo.value.complete;
+  emit("todo-checked", localTodo.value.id, localTodo.value.complete);
 }
 </script>
